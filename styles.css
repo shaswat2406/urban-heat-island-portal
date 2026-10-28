@@ -1,0 +1,336 @@
+/* Urban Heat Islands: Microclimate Degradation & Passive Engineering Solutions
+   Visual Vibe: Apple Environmental Progress Report meets NASA Earth Observatory
+   Course: CHE110 - Environmental Studies (CA-01) | Lovely Professional University
+   Student: Shaswat Sinha (12629556) | Section: RK2P26AW
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg-obsidian: #080b12;
+  --bg-card: rgba(13, 20, 36, 0.72);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-hover: rgba(255, 255, 255, 0.18);
+  --thermal-crimson: #ef4444;
+  --thermal-amber: #f59e0b;
+  --thermal-orange: #fb923c;
+  --eco-emerald: #10b981;
+  --eco-mint: #34d399;
+  --sat-cyan: #06b6d4;
+  --sat-blue: #3b82f6;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+}
+
+body {
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245, 158, 11, 0.07), transparent 70%),
+    radial-gradient(circle at 10% 30%, rgba(16, 185, 129, 0.04), transparent 40%),
+    radial-gradient(circle at 90% 70%, rgba(239, 68, 68, 0.05), transparent 45%),
+    linear-gradient(to bottom, #07090e, #0a0d16 50%, #06080d);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Typography Classes */
+.font-heading {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-glass-hover);
+}
+
+.glass-panel-glow {
+  position: relative;
+}
+
+.glass-panel-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), transparent 60%, rgba(16, 185, 129, 0.2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Animated Heat Shimmer Text */
+.heat-shimmer-text {
+  background: linear-gradient(
+    90deg, 
+    #ffedd5 0%, 
+    #f59e0b 25%, 
+    #ef4444 50%, 
+    #f97316 75%, 
+    #ffedd5 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: heatShimmer 6s linear infinite;
+}
+
+@keyframes heatShimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Subtle Heat Pulse Ring */
+.heat-pulse {
+  animation: pulseThermal 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseThermal {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080b12;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.5);
+}
+
+/* Scientific Grid Background */
+.sci-grid {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Custom Range Sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  outline: none;
+  transition: background 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f59e0b;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
+  border: 2px solid #ffffff;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #fbbf24;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f59e0b;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
+  border: 2px solid #ffffff;
+}
+
+/* Tooltip Styling */
+.sci-tooltip-target {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.4);
+}
+
+.sci-tooltip-target .sci-tooltip-content {
+  visibility: hidden;
+  opacity: 0;
+  width: 260px;
+  background-color: #0d1527;
+  color: #f1f5f9;
+  text-align: left;
+  border-radius: 8px;
+  padding: 10px 14px;
+  position: absolute;
+  z-index: 100;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+  pointer-events: none;
+}
+
+.sci-tooltip-target:hover .sci-tooltip-content {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Split Viewer Specifics */
+.split-viewer-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+  border-radius: 12px;
+  border: 1px solid var(--border-glass);
+}
+
+.split-viewer-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #ffffff;
+  cursor: ew-resize;
+  z-index: 20;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+}
+
+.split-viewer-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #0f172a;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  cursor: ew-resize;
+}
+
+/* Toast Notification */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #f8fafc;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1), fadeOut 0.4s ease 2.8s forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+  background: rgba(5, 8, 15, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+/* Print styles for export */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
