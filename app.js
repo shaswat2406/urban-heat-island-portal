@@ -1293,13 +1293,23 @@ function jumpToVideoChapter(idx) {
   appState.currentChapter = idx;
   const ch = VIDEO_CHAPTERS[idx];
 
-  // Update iframe seek parameter if YouTube player present
+  // Update iframe seek parameter for YouTube player
   const videoFrame = document.getElementById('video-player-frame');
   if (videoFrame) {
-    const currentSrc = videoFrame.src;
-    // Append or replace start time query param
-    const baseUrl = currentSrc.split('?')[0];
-    videoFrame.src = `${baseUrl}?start=${ch.seconds}&autoplay=1`;
+    try {
+      videoFrame.contentWindow.postMessage(JSON.stringify({
+        event: 'command',
+        func: 'seekTo',
+        args: [ch.seconds, true]
+      }), '*');
+      videoFrame.contentWindow.postMessage(JSON.stringify({
+        event: 'command',
+        func: 'playVideo',
+        args: []
+      }), '*');
+    } catch (e) {}
+
+    videoFrame.src = `https://www.youtube.com/embed/1nAQkypw7rg?start=${ch.seconds}&autoplay=1&enablejsapi=1&rel=0`;
   }
 
   // Update button highlights
@@ -1438,6 +1448,13 @@ function openModal(modalId) {
   if (!modal) return;
   modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+
+  if (modalId === 'video-modal') {
+    const videoFrame = document.getElementById('video-modal-frame');
+    if (videoFrame) {
+      videoFrame.src = "https://www.youtube.com/embed/1nAQkypw7rg?autoplay=1&enablejsapi=1&rel=0";
+    }
+  }
 }
 
 function closeModal(modalId) {
@@ -1446,12 +1463,11 @@ function closeModal(modalId) {
   modal.classList.add('hidden');
   document.body.style.overflow = 'auto';
 
-  // If closing video modal, pause/reset player
+  // If closing video modal, stop playback and silence audio completely
   if (modalId === 'video-modal') {
     const videoFrame = document.getElementById('video-modal-frame');
     if (videoFrame) {
-      const src = videoFrame.src;
-      videoFrame.src = src; // reload to stop audio
+      videoFrame.src = "";
     }
   }
 }
